@@ -104,12 +104,16 @@ for idx, fname in enumerate(images):
     # Add heat to each box in box list
     heat = np.zeros_like(test_img[:,:,0]).astype(np.float)
     heat = add_heat(heat, box_list)
-    mpimg.imsave('./output_images/add_heat_' + str(idx) + '.jpg', heat)
+    # Visualize the heatmap when saving
+    heatmap = np.clip(heat, 0, 255)
+    mpimg.imsave('./output_images/add_heat_' + str(idx) + '.jpg', heatmap, cmap='hot')
     # Apply threshold to help remove false positives
     heat = apply_threshold(heat, threshold=threshold)
-    mpimg.imsave('./output_images/apply_threshold_' + str(idx) + '.jpg', heat)
+    # Visualize the heatmap when saving
+    heatmap = np.clip(heat, 0, 255)
+    mpimg.imsave('./output_images/apply_threshold_' + str(idx) + '.jpg', heatmap, cmap='hot')
     # Find final boxes from heatmap using label function
-    labels = label(heat)
+    labels = label(heatmap)
     draw_labeled_bboxes_img = draw_labeled_bboxes(np.copy(test_img), labels)
     mpimg.imsave('./output_images/draw_labeled_bboxes_' + str(idx) + '.jpg', draw_labeled_bboxes_img)
 
