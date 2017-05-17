@@ -91,7 +91,7 @@ print(round(t2-t, 2), 'Seconds to train SVC...')
 # Check the score of the SVC
 print('Test Accuracy of SVC = ', round(svc.score(X_test, y_test), 4))
 
-# Locate test images
+# Localize cars on test images
 images = glob.glob('test_images/*')
 for idx, fname in enumerate(images):
     test_img = mpimg.imread(fname)
